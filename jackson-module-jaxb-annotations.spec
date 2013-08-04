@@ -29,7 +29,7 @@ BuildRequires: maven-site-plugin
 BuildRequires: maven-surefire-provider-junit4
 BuildRequires: replacer
 # bundle-plugin Requires
-BuildRequires: mvn(org.sonatype.aether:aether)
+#BuildRequires: mvn(org.sonatype.aether:aether)
 
 Provides:      jackson2-module-jaxb-annotations = %{version}-%{release}
 Obsoletes:     jackson2-module-jaxb-annotations < %{version}-%{release}
