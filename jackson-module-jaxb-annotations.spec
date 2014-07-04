@@ -1,17 +1,16 @@
 Name:          jackson-module-jaxb-annotations
-Version:       2.2.2
-Release:       5%{?dist}
+Version:       2.4.1
+Release:       1%{?dist}
 Summary:       JAXB annotations support for Jackson (2.x)
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonJAXBAnnotations
 Source0:       https://github.com/FasterXML/jackson-module-jaxb-annotations/archive/%{name}-%{version}.tar.gz
-# jackson-module-jaxb-annotations package don't include the license file
-# https://github.com/FasterXML/jackson-module-jaxb-annotations/issues/21
-Source1:       http://www.apache.org/licenses/LICENSE-2.0.txt
 
-BuildRequires: java-devel
-BuildRequires: mvn(com.fasterxml:oss-parent)
-
+%if %{?fedora} > 20
+BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
+%else
+BuildRequires: mvn(com.fasterxml.jackson:jackson-parent)
+%endif
 # Require glassfish-jaxb-api
 BuildRequires: mvn(javax.xml.bind:jaxb-api)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-core)
@@ -49,8 +48,9 @@ This package contains javadoc for %{name}.
 %prep
 %setup -q -n %{name}-%{name}-%{version}
 
-cp -p %{SOURCE1} .
-sed -i 's/\r//' LICENSE-2.0.txt
+cp -p src/main/resources/META-INF/LICENSE .
+cp -p src/main/resources/META-INF/NOTICE .
+sed -i 's/\r//' LICENSE NOTICE
 
 %build
 
@@ -61,12 +61,15 @@ sed -i 's/\r//' LICENSE-2.0.txt
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE-2.0.txt README.md
+%doc LICENSE NOTICE README.md
 
 %files javadoc -f .mfiles-javadoc
-%doc LICENSE-2.0.txt
+%doc LICENSE NOTICE
 
 %changelog
+* Fri Jul 04 2014 gil cattaneo <puntogil@libero.it> 2.4.1-1
+- update to 2.4.1
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
