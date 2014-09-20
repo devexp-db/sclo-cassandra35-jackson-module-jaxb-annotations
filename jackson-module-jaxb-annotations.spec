@@ -1,5 +1,5 @@
 Name:          jackson-module-jaxb-annotations
-Version:       2.4.1
+Version:       2.4.2
 Release:       1%{?dist}
 Summary:       JAXB annotations support for Jackson (2.x)
 License:       ASL 2.0
@@ -61,12 +61,15 @@ sed -i 's/\r//' LICENSE NOTICE
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE NOTICE README.md
+%doc LICENSE NOTICE README.md release-notes/*
 
 %files javadoc -f .mfiles-javadoc
 %doc LICENSE NOTICE
 
 %changelog
+* Sat Sep 20 2014 gil cattaneo <puntogil@libero.it> 2.4.2-1
+- update to 2.4.2
+
 * Fri Jul 04 2014 gil cattaneo <puntogil@libero.it> 2.4.1-1
 - update to 2.4.1
 
