@@ -1,6 +1,6 @@
 Name:          jackson-module-jaxb-annotations
 Version:       2.5.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       JAXB annotations support for Jackson (2.x)
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonJAXBAnnotations
@@ -69,6 +69,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Sat Jan 31 2015 gil cattaneo <puntogil@libero.it> 2.5.0-1
 - update to 2.5.0
 
