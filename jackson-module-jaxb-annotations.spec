@@ -1,37 +1,23 @@
 Name:          jackson-module-jaxb-annotations
-Version:       2.5.0
-Release:       2%{?dist}
+Version:       2.6.2
+Release:       1%{?dist}
 Summary:       JAXB annotations support for Jackson (2.x)
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonJAXBAnnotations
 Source0:       https://github.com/FasterXML/jackson-module-jaxb-annotations/archive/%{name}-%{version}.tar.gz
 
-%if %{?fedora} > 20
+BuildRequires: maven-local
 BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
-%else
-BuildRequires: mvn(com.fasterxml.jackson:jackson-parent)
-%endif
-# Require glassfish-jaxb-api
 BuildRequires: mvn(javax.xml.bind:jaxb-api)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-core)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-databind)
-
-# test deps
+BuildRequires: mvn(com.google.code.maven-replacer-plugin:replacer)
 BuildRequires: mvn(javax.ws.rs:jsr311-api)
 BuildRequires: mvn(junit:junit)
-
-BuildRequires: maven-local
-BuildRequires: maven-enforcer-plugin
-BuildRequires: maven-plugin-build-helper
-BuildRequires: maven-plugin-bundle
-BuildRequires: maven-site-plugin
-BuildRequires: maven-surefire-provider-junit
-BuildRequires: replacer
-# bundle-plugin Requires
-#BuildRequires: mvn(org.sonatype.aether:aether)
-
-Provides:      jackson2-module-jaxb-annotations = %{version}-%{release}
-Obsoletes:     jackson2-module-jaxb-annotations < %{version}-%{release}
+BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
+BuildRequires: mvn(org.apache.maven.plugins:maven-site-plugin)
+BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 BuildArch:     noarch
 
@@ -69,6 +55,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Mon Sep 28 2015 gil cattaneo <puntogil@libero.it> 2.6.2-1
+- update to 2.6.2
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
