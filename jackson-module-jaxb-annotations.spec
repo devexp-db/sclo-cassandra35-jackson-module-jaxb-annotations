@@ -1,5 +1,5 @@
 Name:          jackson-module-jaxb-annotations
-Version:       2.6.2
+Version:       2.6.3
 Release:       1%{?dist}
 Summary:       JAXB annotations support for Jackson (2.x)
 License:       ASL 2.0
@@ -8,11 +8,11 @@ Source0:       https://github.com/FasterXML/jackson-module-jaxb-annotations/arch
 
 BuildRequires: maven-local
 BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
-BuildRequires: mvn(javax.xml.bind:jaxb-api)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-core)
 BuildRequires: mvn(com.fasterxml.jackson.core:jackson-databind)
 BuildRequires: mvn(com.google.code.maven-replacer-plugin:replacer)
 BuildRequires: mvn(javax.ws.rs:jsr311-api)
+BuildRequires: mvn(javax.xml.bind:jaxb-api)
 BuildRequires: mvn(junit:junit)
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
@@ -55,6 +55,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Sun Oct 25 2015 gil cattaneo <puntogil@libero.it> 2.6.3-1
+- update to 2.6.3
+
 * Mon Sep 28 2015 gil cattaneo <puntogil@libero.it> 2.6.2-1
 - update to 2.6.2
 
