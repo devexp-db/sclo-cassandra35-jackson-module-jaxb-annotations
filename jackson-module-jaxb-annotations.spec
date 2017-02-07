@@ -1,23 +1,19 @@
 Name:          jackson-module-jaxb-annotations
 Version:       2.7.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       JAXB annotations support for Jackson (2.x)
 License:       ASL 2.0
 URL:           http://wiki.fasterxml.com/JacksonJAXBAnnotations
 Source0:       https://github.com/FasterXML/jackson-module-jaxb-annotations/archive/%{name}-%{version}.tar.gz
 
-BuildRequires: maven-local
-BuildRequires: mvn(com.fasterxml.jackson:jackson-parent:pom:)
-BuildRequires: mvn(com.fasterxml.jackson.core:jackson-core)
-BuildRequires: mvn(com.fasterxml.jackson.core:jackson-databind)
-BuildRequires: mvn(com.google.code.maven-replacer-plugin:replacer)
-BuildRequires: mvn(javax.ws.rs:jsr311-api)
-BuildRequires: mvn(javax.xml.bind:jaxb-api)
-BuildRequires: mvn(junit:junit)
-BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires: mvn(org.apache.maven.plugins:maven-enforcer-plugin)
-BuildRequires: mvn(org.apache.maven.plugins:maven-site-plugin)
-BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  maven-local
+BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations)
+BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core)
+BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-databind)
+BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:)
+BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
+BuildRequires:  mvn(javax.ws.rs:jsr311-api)
+BuildRequires:  mvn(javax.xml.bind:jaxb-api)
 
 BuildArch:     noarch
 
@@ -55,6 +51,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 07 2017 Michael Simacek <msimacek@redhat.com> - 2.7.6-2
+- Regenerate BuildRequires
+
 * Mon Aug 22 2016 gil cattaneo <puntogil@libero.it> 2.7.6-1
 - update to 2.7.6
 
