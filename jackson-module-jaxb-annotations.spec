@@ -1,47 +1,61 @@
-Name:          jackson-module-jaxb-annotations
-Version:       2.7.6
-Release:       2%{?dist}
-Summary:       JAXB annotations support for Jackson (2.x)
-License:       ASL 2.0
-URL:           http://wiki.fasterxml.com/JacksonJAXBAnnotations
-Source0:       https://github.com/FasterXML/jackson-module-jaxb-annotations/archive/%{name}-%{version}.tar.gz
+%{?scl:%scl_package jackson-module-jaxb-annotations}
+%{!?scl:%global pkg_name %{name}}
 
-BuildRequires:  maven-local
-BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations)
-BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core)
-BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-databind)
-BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:)
-BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
-BuildRequires:  mvn(javax.ws.rs:jsr311-api)
-BuildRequires:  mvn(javax.xml.bind:jaxb-api)
+Name:		%{?scl_prefix}jackson-module-jaxb-annotations
+Version:	2.7.6
+Release:	3%{?dist}
+Summary:	JAXB annotations support for Jackson (2.x)
+License:	ASL 2.0
+URL:		http://wiki.fasterxml.com/JacksonJAXBAnnotations
+Source0:	https://github.com/FasterXML/%{pkg_name}/archive/%{pkg_name}-%{version}.tar.gz
 
-BuildArch:     noarch
+BuildRequires:	%{?scl_prefix_maven}maven-local
+BuildRequires:	%{?scl_prefix}jackson-annotations
+BuildRequires:	%{?scl_prefix}jackson-core
+BuildRequires:	%{?scl_prefix}jackson-databind
+BuildRequires:	%{?scl_prefix}jackson-parent
+BuildRequires:	%{?scl_prefix}replacer
+BuildRequires:	%{?scl_prefix}jsr-311
+BuildRequires:	%{?scl_prefix}fasterxml-oss-parent
+# do not require jaxb-api dependency in scl package
+%{!?scl:BuildRequires:	mvn(javax.xml.bind:jaxb-api)}
+%{?scl:Requires: %scl_runtime}
+
+BuildArch:	noarch
 
 %description
 Support for using JAXB annotations as an alternative to
 "native" Jackson annotations, for configuring data binding.
 
 %package javadoc
-Summary:       Javadoc for %{name}
+Summary:	Javadoc for %{name}
 
 %description javadoc
 This package contains javadoc for %{name}.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%setup -q -n %{pkg_name}-%{pkg_name}-%{version}
 
 cp -p src/main/resources/META-INF/LICENSE .
 cp -p src/main/resources/META-INF/NOTICE .
 sed -i 's/\r//' LICENSE NOTICE
 
-%mvn_file : %{name}
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
+# remove jaxb-api dependency in scl package
+%{?scl:%pom_remove_dep :jaxb-api}
+
+%mvn_file : %{pkg_name}
+%{?scl:EOF}
 
 %build
-
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %mvn_build
+%{?scl:EOF}
 
 %install
+%{?scl:scl enable %{scl_maven} %{scl} - << "EOF"}
 %mvn_install
+%{?scl:EOF}
 
 %files -f .mfiles
 %doc README.md release-notes/*
@@ -51,6 +65,9 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Wed Mar 08 2017 Tomas Repik <trepik@redhat.com> - 2.7.6-3
+- scl conversion
+
 * Tue Feb 07 2017 Michael Simacek <msimacek@redhat.com> - 2.7.6-2
 - Regenerate BuildRequires
 
